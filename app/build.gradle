@@ -24,26 +24,31 @@ if (isBeta) {
     versionExt += "-beta"
 }
 
+def hasSigningConfig = false
+
 android {
     namespace 'com.deniscerri.ytdl'
     compileSdk = 36
 
     try {
         def propertiesFile = rootProject.file("keystore.properties")
-        if(propertiesFile.text != ""){
+        if (propertiesFile.exists() && propertiesFile.text.trim()) {
             properties.load(new FileInputStream(propertiesFile))
-
-            properties.load(new FileInputStream(propertiesFile))
-            signingConfigs {
-                debug {
-                    storeFile file(properties["signingConfig.storeFile"])
-                    storePassword properties["signingConfig.storePassword"]
-                    keyAlias properties["signingConfig.keyAlias"]
-                    keyPassword properties["signingConfig.keyPassword"]
+            def storeFilePath = properties["signingConfig.storeFile"]
+            if (storeFilePath != null && storeFilePath.toString().trim()) {
+                signingConfigs {
+                    debug {
+                        storeFile file(storeFilePath)
+                        storePassword properties["signingConfig.storePassword"]
+                        keyAlias properties["signingConfig.keyAlias"]
+                        keyPassword properties["signingConfig.keyPassword"]
+                    }
                 }
+                hasSigningConfig = true
             }
         }
-    }catch(IOException ignored){}
+    } catch (Exception ignored) {}
+
     defaultConfig {
         applicationId "com.deniscerri.ytdl"
         minSdk 24
@@ -74,14 +79,18 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             debuggable false
-            signingConfig signingConfigs.debug
+            if (hasSigningConfig) {
+                signingConfig signingConfigs.debug
+            }
         }
 
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             debuggable true
-            signingConfig signingConfigs.debug
+            if (hasSigningConfig) {
+                signingConfig signingConfigs.debug
+            }
         }
     }
 
