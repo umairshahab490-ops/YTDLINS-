@@ -2,34 +2,50 @@
 <RelativeLayout
     android:id="@+id/no_results"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingHorizontal="24dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
+        android:paddingBottom="48dp"
         tools:ignore="MissingConstraints">
 
         <ImageView
-            android:layout_width="150sp"
-            android:layout_height="100sp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
             android:scaleType="centerInside"
-            android:background="@drawable/ic_no_results" />
+            android:background="@drawable/ic_no_results"
+            android:contentDescription="@string/no_results"
+            android:alpha="0.85" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:text="@string/no_results"
             android:textAlignment="center"
-            android:textSize="20sp"
+            android:textAppearance="?attr/textAppearanceHeadlineSmall"
             android:textStyle="bold" />
 
-    </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:text="@string/search_hint"
+            android:textAlignment="center"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textColor="?android:attr/textColorSecondary"
+            android:lineSpacingExtra="2dp" />
 
+    </LinearLayout>
 
 </RelativeLayout>
