@@ -140,7 +140,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_marginVertical="15dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="12dp"
             app:layout_scrollFlags="scroll|enterAlways"
             android:layout_height="wrap_content">
 
